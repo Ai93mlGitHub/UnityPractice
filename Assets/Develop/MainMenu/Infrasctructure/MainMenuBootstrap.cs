@@ -1,7 +1,8 @@
+using Assets.Develop.CommonServices.DataManagment;
+using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.DI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MainMenuBootstrap : MonoBehaviour
@@ -35,6 +36,32 @@ public class MainMenuBootstrap : MonoBehaviour
             _container.Resolve<SceneSwitcher>().ProseccSwitchSceneFor(new OutputMainMenuArgs(new GameplayInputArgs(2)));
             
             Debug.Log("ѕереходим из меню в игру");
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("ѕытаемс€ сохранить");
+
+            ISaveLoadService saveLoadService = _container.Resolve<ISaveLoadService>();
+
+            if (saveLoadService.TryLoad(out PlayerData playerData))
+            {
+                playerData.Money++;
+                playerData.CompletedLevels.Add(playerData.Money);
+
+                saveLoadService.Save(playerData);
+            }
+            else
+            {
+                PlayerData originPlayerData = new PlayerData()
+                {
+                    Money = 0,
+                    CompletedLevels = new()
+                };
+
+                saveLoadService.Save(originPlayerData);
+            }
         }
     }
 }

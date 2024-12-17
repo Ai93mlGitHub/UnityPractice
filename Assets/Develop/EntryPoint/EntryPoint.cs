@@ -7,6 +7,7 @@ using Assets.Develop.CommonServices.AssetsManagment;
 using Assets.Develop.CommonServices.CoroutinePerformer;
 using Assets.Develop.CommonServices.LoadingScreen;
 using Assets.Develop.CommonServices.SceneManagment;
+using Assets.Develop.CommonServices.DataManagment;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -24,14 +25,20 @@ namespace Assets.Develop.EntryPoint
             //регистрации
             RegisterResourcesAsseetLoader(projectContainer);
             RegisterCoroutinePerformer(projectContainer);
+
             RegisterLoadingCourtain(projectContainer);
             RegisterSceneLoader(projectContainer);
             RegisterSceneSwitcher(projectContainer);
 
+            RegisterSaveLoadService(projectContainer);
+
             //
             projectContainer.Resolve<ICoroutinePerformer>().StartPerform(_gameBootstrap.Run(projectContainer));
-            Debug.Log($"Контейнер содержит SceneSwitcher: {projectContainer.Resolve<SceneSwitcher>() != null}");
         }
+
+        private void RegisterSaveLoadService(DIContainer container)
+            => container.RegisterAsSingle<ISaveLoadService>(c
+                => new SaveLoadService(new JsonSerializer(), new LocalDataRepository())); 
 
         private void SetupAppSettings()
         {
