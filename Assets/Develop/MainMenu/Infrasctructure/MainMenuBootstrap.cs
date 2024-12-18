@@ -41,27 +41,7 @@ public class MainMenuBootstrap : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("ѕытаемс€ сохранить");
-
-            ISaveLoadService saveLoadService = _container.Resolve<ISaveLoadService>();
-
-            if (saveLoadService.TryLoad(out PlayerData playerData))
-            {
-                playerData.Money++;
-                playerData.CompletedLevels.Add(playerData.Money);
-
-                saveLoadService.Save(playerData);
-            }
-            else
-            {
-                PlayerData originPlayerData = new PlayerData()
-                {
-                    Money = 0,
-                    CompletedLevels = new()
-                };
-
-                saveLoadService.Save(originPlayerData);
-            }
+            _container.Resolve<PlayerDataProvider>().Save();
         }
     }
 }

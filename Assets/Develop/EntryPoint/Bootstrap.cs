@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Develop.DI;
 using Assets.Develop.CommonServices.LoadingScreen;
 using Assets.Develop.CommonServices.SceneManagment;
+using Assets.Develop.CommonServices.DataManagment.DataProviders;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -18,6 +19,9 @@ namespace Assets.Develop.EntryPoint
             loadingCurtain.Show();
 
             Debug.Log("Ќачало инициализации сервисов");
+
+            container.Resolve<PlayerDataProvider>().Load();
+
             yield return new WaitForSeconds(1.5f); //имитаци€ бурной де€тельности
 
             Debug.Log(" онец инициализации сервисов");
