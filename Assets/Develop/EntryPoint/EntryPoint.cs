@@ -9,6 +9,7 @@ using Assets.Develop.CommonServices.LoadingScreen;
 using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.CommonServices.DataManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
+using Assets.Develop.CommonServices.Wallet;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -33,17 +34,20 @@ namespace Assets.Develop.EntryPoint
 
             RegisterSaveLoadService(projectContainer);
             RegisterPlayerDataProvider(projectContainer);
-
+            RegisterWalletService(projectContainer);
 
             //
             projectContainer.Resolve<ICoroutinePerformer>().StartPerform(_gameBootstrap.Run(projectContainer));
         }
+
 
         private void SetupAppSettings()
         {
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 144;
         }
+        private void RegisterWalletService(DIContainer container)
+            => container.RegisterAsSingle(c => new WalletService(c.Resolve<PlayerDataProvider>()));
 
         private void RegisterPlayerDataProvider(DIContainer container)
             => container.RegisterAsSingle(c => new PlayerDataProvider(c.Resolve<ISaveLoadService>()));

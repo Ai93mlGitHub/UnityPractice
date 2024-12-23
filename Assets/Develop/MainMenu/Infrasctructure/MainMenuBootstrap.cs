@@ -1,6 +1,7 @@
 using Assets.Develop.CommonServices.DataManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.SceneManagment;
+using Assets.Develop.CommonServices.Wallet;
 using Assets.Develop.DI;
 using System.Collections;
 using UnityEngine;
@@ -38,6 +39,12 @@ public class MainMenuBootstrap : MonoBehaviour
             Debug.Log("Переходим из меню в игру");
         }
 
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            WalletService wallet = _container.Resolve<WalletService>();
+            wallet.Add(CurrencyTypes.Gold, 100);
+            Debug.Log($"Gold: {wallet.GetCurrency(CurrencyTypes.Gold).Value}");
+        }
 
         if (Input.GetKeyDown(KeyCode.S))
         {

@@ -1,3 +1,7 @@
+using Assets.Develop.CommonServices.Wallet;
+using System;
+using System.Collections.Generic;
+
 namespace Assets.Develop.CommonServices.DataManagment.DataProviders
 {
     public class PlayerDataProvider : DataProvider<PlayerData>
@@ -11,9 +15,19 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
         {
             return new PlayerData()
             {
-                Money = 0,
-                CompletedLevels = new()
+                WalletData = InitWalletData()
             };
+
+        }
+
+        private Dictionary<CurrencyTypes, int> InitWalletData()
+        {
+             Dictionary<CurrencyTypes, int> walletData = new();
+
+            foreach (CurrencyTypes currencyType in Enum.GetValues(typeof(CurrencyTypes)))
+                walletData.Add(currencyType, 0);
+
+            return walletData;
         }
     }
 
