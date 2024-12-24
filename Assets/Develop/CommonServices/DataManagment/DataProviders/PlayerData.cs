@@ -8,5 +8,6 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
     public class PlayerData : ISaveData
     {
         public Dictionary<CurrencyTypes, int> WalletData;
+        public List<int> CompletedLevels;
     }
 }

@@ -65,6 +65,15 @@ namespace Assets.Develop.DI
             throw new InvalidOperationException($"Registration for {typeof(T)} not exist");
         }
 
+        public void Initialize()
+        {
+            foreach(Registration registration in _container.Values)
+            {
+                if (registration.Instance == null && registration.IsNonLazy)
+                    registration.Instance = registration.Creator(this);
+            }
+        }
+
         private T CreateFrom<T>(Registration registration)
         {
             if (registration.Instance == null && registration.Creator != null)
@@ -78,10 +87,13 @@ namespace Assets.Develop.DI
             public Func<DIContainer, object> Creator {get;}
                         
             public object Instance { get; set; }
+            public bool IsNonLazy { get; private set; }
 
             public Registration(object instance) => Instance = instance;
 
             public Registration(Func<DIContainer, object> creator) => Creator = creator;
+
+            public void NonLazy() => IsNonLazy = true;
         }
     }
 }

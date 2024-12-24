@@ -22,6 +22,9 @@ public class MainMenuBootstrap : MonoBehaviour
     private void ProcessRegistrations()
     {
         //метод для регистрации сервисов 
+
+
+        _container.Initialize();
     }
 
     private void Start()

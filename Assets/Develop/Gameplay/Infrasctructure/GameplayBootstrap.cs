@@ -25,6 +25,8 @@ public class GameplayBootstrap : MonoBehaviour
     private void ProcessRegistrations()
     {
         //метод для регистрации сервисов 
+
+        _container.Initialize();
     }
 
     private void Update()

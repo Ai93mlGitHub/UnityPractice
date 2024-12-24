@@ -20,7 +20,10 @@ namespace Assets.Develop.EntryPoint
 
             Debug.Log("Начало инициализации сервисов");
 
+            Debug.Log("До этого момента ошибки нет");
             container.Resolve<PlayerDataProvider>().Load();
+
+            Debug.Log("Зарезолвиди дата провайдер");
 
             yield return new WaitForSeconds(1.5f); //имитация бурной деятельности
 
@@ -28,7 +31,7 @@ namespace Assets.Develop.EntryPoint
 
             loadingCurtain.Hide();
 
-            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new MainMenuInputArgs()));
+            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new GameplayInputArgs(1)));
         }
     }
 }

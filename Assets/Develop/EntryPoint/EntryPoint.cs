@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Assets.Develop.DI;
 using Assets.Develop.CommonServices.AssetsManagment;
@@ -34,8 +31,10 @@ namespace Assets.Develop.EntryPoint
 
             RegisterSaveLoadService(projectContainer);
             RegisterPlayerDataProvider(projectContainer);
+
             RegisterWalletService(projectContainer);
 
+            projectContainer.Initialize();
             //
             projectContainer.Resolve<ICoroutinePerformer>().StartPerform(_gameBootstrap.Run(projectContainer));
         }
@@ -47,7 +46,7 @@ namespace Assets.Develop.EntryPoint
             Application.targetFrameRate = 144;
         }
         private void RegisterWalletService(DIContainer container)
-            => container.RegisterAsSingle(c => new WalletService(c.Resolve<PlayerDataProvider>()));
+            => container.RegisterAsSingle(c => new WalletService(c.Resolve<PlayerDataProvider>())).NonLazy();
 
         private void RegisterPlayerDataProvider(DIContainer container)
             => container.RegisterAsSingle(c => new PlayerDataProvider(c.Resolve<ISaveLoadService>()));
