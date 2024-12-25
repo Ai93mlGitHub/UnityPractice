@@ -15,7 +15,7 @@ namespace Assets.Develop.CommonServices.DataManagment
 
         public string Serialize<TData>(TData data)
         {
-            return JsonConvert.SerializeObject(data, new JsonSerializerSettings()
+            return JsonConvert.SerializeObject(data, new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
                 TypeNameHandling = TypeNameHandling.Auto,

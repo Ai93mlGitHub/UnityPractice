@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Develop.DI
 {
@@ -26,7 +24,7 @@ namespace Assets.Develop.DI
             if (IsAlreadyRegister<T>())
                 throw new InvalidOperationException($"{typeof(T)} is already register");
 
-            Registration registration = new Registration(container => creator(container));
+            Registration registration = new Registration(container => creator.Invoke(container));
             _container[typeof(T)] = registration;
             return registration;
         }
@@ -77,7 +75,7 @@ namespace Assets.Develop.DI
         private T CreateFrom<T>(Registration registration)
         {
             if (registration.Instance == null && registration.Creator != null)
-                registration.Instance = registration.Creator(this);
+                registration.Instance = registration.Creator.Invoke(this);
 
             return (T)registration.Instance;
         }

@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.Develop.CommonServices.SceneManagment
+﻿namespace Assets.Develop.CommonServices.SceneManagment
 {
     public interface IInputSceneArgs
     {

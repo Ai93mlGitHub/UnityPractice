@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using UnityEngine;
 
@@ -21,16 +20,5 @@ namespace Assets.Develop.CommonServices.DataManagment
 
         private string FullPathFor(string key) 
             => Path.Combine(_folderPath, key) + "." + SaveFileExtension;
-    }
-
-    public class PlayerPrefsRepository : IDataRepository
-    {
-        public bool Exists(string key) => PlayerPrefs.HasKey(key);
-
-        public string Read(string key) => PlayerPrefs.GetString(key);
-
-        public void Remove(string key) => PlayerPrefs.DeleteKey(key);
-
-        public void Write(string key, string serializedData) => PlayerPrefs.SetString(key, serializedData);
     }
 }

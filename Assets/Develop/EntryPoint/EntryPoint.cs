@@ -45,6 +45,7 @@ namespace Assets.Develop.EntryPoint
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 144;
         }
+
         private void RegisterWalletService(DIContainer container)
             => container.RegisterAsSingle(c => new WalletService(c.Resolve<PlayerDataProvider>())).NonLazy();
 

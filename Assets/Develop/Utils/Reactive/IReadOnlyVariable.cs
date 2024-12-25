@@ -6,9 +6,6 @@ namespace Assets.Develop.Utils.Reactive
     {
         event Action<T, T> Changed;
 
-        T Value
-        {
-            get;
-        }
+        T Value { get; }
     }
 }

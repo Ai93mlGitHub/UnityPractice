@@ -38,16 +38,13 @@ namespace Assets.Develop.CommonServices.Wallet
 
         public void ReadFrom(PlayerData data)
         {
-            Debug.Log("Метод рид фром был вызван");
             foreach (KeyValuePair<CurrencyTypes, int> currency in data.WalletData)
             {
-                Debug.Log("в цикле");
                 if (_currencies.ContainsKey(currency.Key))
                     _currencies[currency.Key].Value = currency.Value;
                 else
                     _currencies.Add(currency.Key, new ReactiveVariable<int>(currency.Value));
             }
-            Debug.Log("Все рид фром ок");
         }
 
         public void WriteTo(PlayerData data)

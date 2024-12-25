@@ -3,7 +3,6 @@ using Assets.Develop.CommonServices.LoadingScreen;
 using Assets.Develop.DI;
 using System;
 using System.Collections;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Assets.Develop.CommonServices.SceneManagment
@@ -109,8 +108,6 @@ namespace Assets.Develop.CommonServices.SceneManagment
 
             _currentSceneContainer = new DIContainer(_projectContainer);
             
-            Debug.Log($"Контейнер содержит SceneSwitcher: {_currentSceneContainer.Resolve<SceneSwitcher>() != null}");
-
             yield return mainMenuBootstrap.Run(_currentSceneContainer, mainMenuInputArgs);
 
             _loadingCurtain.Hide();
