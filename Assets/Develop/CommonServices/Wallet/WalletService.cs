@@ -38,6 +38,18 @@ namespace Assets.Develop.CommonServices.Wallet
 
         public void ReadFrom(PlayerData data)
         {
+            if (data == null)
+            {
+                Debug.LogError("PlayerData is null in WalletService.ReadFrom!");
+                return;
+            }
+
+            if (data.WalletData == null)
+            {
+                Debug.LogError("WalletData is null in PlayerData!");
+                data.WalletData = new Dictionary<CurrencyTypes, int>(); // Инициализация пустого словаря
+            }
+
             foreach (KeyValuePair<CurrencyTypes, int> currency in data.WalletData)
             {
                 if (_currencies.ContainsKey(currency.Key))

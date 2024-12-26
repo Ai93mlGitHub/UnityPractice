@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Develop.CommonServices.DataManagment.DataProviders
 {
@@ -37,9 +38,15 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
         public void Load()
         {
             if (_saveLoadService.TryLoad(out TData data))
+            {
+                Debug.Log("Данные успешно загружены");
                 Data = data;
+            }
             else
+            {
+                Debug.LogError("Не удалось загрузить данные");
                 Reset();
+            }
 
             foreach (IDataReader<TData> reader in _readers)
                 reader.ReadFrom(Data);
