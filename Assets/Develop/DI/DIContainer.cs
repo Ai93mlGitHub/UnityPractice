@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Develop.DI
 {
-    public class DIContainer
+    public class DIContainer : IDisposable
     {
 
         private readonly Dictionary<Type, Registration> _container = new();
@@ -69,6 +69,20 @@ namespace Assets.Develop.DI
             {
                 if (registration.Instance == null && registration.IsNonLazy)
                     registration.Instance = registration.Creator(this);
+
+                if (registration.Instance != null)
+                    if (registration.Instance is IInitializable initializable)
+                        initializable.Initialize();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (Registration registration in _container.Values)
+            {
+                if (registration.Instance != null)
+                    if (registration.Instance is IDisposable disposable)
+                        disposable.Dispose();
             }
         }
 
@@ -79,6 +93,8 @@ namespace Assets.Develop.DI
 
             return (T)registration.Instance;
         }
+
+
 
         public class Registration
         {
