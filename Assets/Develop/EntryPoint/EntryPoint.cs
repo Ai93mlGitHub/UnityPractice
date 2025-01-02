@@ -7,6 +7,8 @@ using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.CommonServices.DataManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.Wallet;
+using System;
+using Assets.Develop.CommonServices.ConfigsManagement;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -34,11 +36,12 @@ namespace Assets.Develop.EntryPoint
 
             RegisterWalletService(projectContainer);
 
+            RegisterConfigsProviderService(projectContainer);
+
             projectContainer.Initialize();
             //
             projectContainer.Resolve<ICoroutinePerformer>().StartPerform(_gameBootstrap.Run(projectContainer));
         }
-
 
         private void SetupAppSettings()
         {
@@ -46,11 +49,14 @@ namespace Assets.Develop.EntryPoint
             Application.targetFrameRate = 144;
         }
 
+        private void RegisterConfigsProviderService(DIContainer container)
+            => container.RegisterAsSingle(c => new ConfigsProviderService(c.Resolve<ResourcesAssetLoader>()));  
+
         private void RegisterWalletService(DIContainer container)
             => container.RegisterAsSingle(c => new WalletService(c.Resolve<PlayerDataProvider>())).NonLazy();
 
         private void RegisterPlayerDataProvider(DIContainer container)
-            => container.RegisterAsSingle(c => new PlayerDataProvider(c.Resolve<ISaveLoadService>()));
+            => container.RegisterAsSingle(c => new PlayerDataProvider(c.Resolve<ISaveLoadService>(), c.Resolve<ConfigsProviderService>()));
 
         private void RegisterSaveLoadService(DIContainer container)
             => container.RegisterAsSingle<ISaveLoadService>(c

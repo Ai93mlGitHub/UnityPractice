@@ -1,8 +1,11 @@
+using Assets.Develop.CommonServices.AssetsManagment;
 using Assets.Develop.CommonServices.DataManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.CommonServices.Wallet;
+using Assets.Develop.CommonUI.Wallet;
 using Assets.Develop.DI;
+using Assets.Develop.MainMenu.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -21,20 +24,44 @@ public class MainMenuBootstrap : MonoBehaviour
 
     private void ProcessRegistrations()
     {
-        //метод дл€ регистрации сервисов 
+        _container.RegisterAsSingle(c => new WalletPresenterFactory(c));
 
+        //метод дл€ регистрации сервисов 
+        _container.RegisterAsSingle(c =>
+        {
+            MainMenuUIRoot mainMenuUIRootPrefab = c.Resolve<ResourcesAssetLoader>().LoadResource<MainMenuUIRoot>("MainMenu/UI/MainMenuUIRoot");
+            return Instantiate(mainMenuUIRootPrefab);
+        }).NonLazy();
+
+        _container
+            .RegisterAsSingle(c => c.Resolve<WalletPresenterFactory>()
+            .CreateCurrencyPresenter(c.Resolve<MainMenuUIRoot>()._currencyView, CurrencyTypes.Gold))
+            .NonLazy();
 
         _container.Initialize();
     }
 
-    private void Start()
-    {
-        Debug.Log("—цена ћеню открылось");
-    }
+    private CurrencyPresenter _currencyPresenter;
 
     private void Update()
     {
-            
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            _currencyPresenter?.Dispose();
+            MainMenuUIRoot mainMenuUIRoot = _container.Resolve<MainMenuUIRoot>();
+            _currencyPresenter = _container.Resolve<WalletPresenterFactory>().CreateCurrencyPresenter(mainMenuUIRoot._currencyView, CurrencyTypes.Gold);
+            _currencyPresenter.Initialize();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            _currencyPresenter?.Dispose ();
+            MainMenuUIRoot mainMenuUIRoot = _container.Resolve<MainMenuUIRoot>();
+            _currencyPresenter = _container.Resolve<WalletPresenterFactory>().CreateCurrencyPresenter(mainMenuUIRoot._currencyView, CurrencyTypes.Diamond);
+            _currencyPresenter.Initialize();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             _container.Resolve<SceneSwitcher>().ProseccSwitchSceneFor(new OutputMainMenuArgs(new GameplayInputArgs(2)));

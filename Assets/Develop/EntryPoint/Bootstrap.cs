@@ -5,6 +5,7 @@ using Assets.Develop.DI;
 using Assets.Develop.CommonServices.LoadingScreen;
 using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
+using Assets.Develop.CommonServices.ConfigsManagement;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -20,7 +21,7 @@ namespace Assets.Develop.EntryPoint
 
             Debug.Log("Начало инициализации сервисов");
 
-            Debug.Log("До этого момента ошибки нет");
+            container.Resolve<ConfigsProviderService>().LoadAll();
             container.Resolve<PlayerDataProvider>().Load();
 
             Debug.Log("Зарезолвиди дата провайдер");
