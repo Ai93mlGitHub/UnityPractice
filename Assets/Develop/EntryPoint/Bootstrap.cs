@@ -32,7 +32,7 @@ namespace Assets.Develop.EntryPoint
 
             loadingCurtain.Hide();
 
-            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new GameplayInputArgs(1)));
+            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new MainMenuInputArgs()));
         }
     }
 }

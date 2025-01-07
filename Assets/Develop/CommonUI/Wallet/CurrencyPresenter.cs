@@ -3,9 +3,6 @@ using Assets.Develop.Configs.Common.Wallet;
 using Assets.Develop.DI;
 using Assets.Develop.Utils.Reactive;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Develop.CommonUI.Wallet
 {
@@ -18,7 +15,7 @@ namespace Assets.Develop.CommonUI.Wallet
 
 
         //viewer
-        private IconWithText _currencyView;
+        private IconWithText _view;
 
         public CurrencyPresenter(
             IReadOnlyVariable<int> currency,
@@ -28,14 +25,16 @@ namespace Assets.Develop.CommonUI.Wallet
         {
             _currency = currency;
             _currencyType = currencyType;
-            _currencyView = currencyView;
+            _view = currencyView;
             _currencyIconsConfig = currencyIconsConfig;
         }
+
+        public IconWithText View => _view;
 
         public void Initialize()
         {
             UpdateValue(_currency.Value);
-            _currencyView.SetIcon(_currencyIconsConfig.GetSpriteFor(_currencyType));
+            _view.SetIcon(_currencyIconsConfig.GetSpriteFor(_currencyType));
 
             _currency.Changed += OnCurrencyChanged;
         }
@@ -49,6 +48,6 @@ namespace Assets.Develop.CommonUI.Wallet
             => UpdateValue(newValue);
 
         private void UpdateValue(int value)
-            => _currencyView.SetText(value.ToString());
+            => _view.SetText(value.ToString());
     }
 }
