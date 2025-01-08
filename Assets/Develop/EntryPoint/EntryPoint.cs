@@ -9,6 +9,7 @@ using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.Wallet;
 using System;
 using Assets.Develop.CommonServices.ConfigsManagement;
+using Assets.Develop.CommonServices.LevelsManagement;
 
 namespace Assets.Develop.EntryPoint
 {
@@ -38,10 +39,15 @@ namespace Assets.Develop.EntryPoint
 
             RegisterConfigsProviderService(projectContainer);
 
+            RegisterCompletedLevelsService(projectContainer);
+
             projectContainer.Initialize();
             //
             projectContainer.Resolve<ICoroutinePerformer>().StartPerform(_gameBootstrap.Run(projectContainer));
         }
+
+        private void RegisterCompletedLevelsService(DIContainer container)
+            => container.RegisterAsSingle(c => new CompletedLevelsService(container.Resolve<PlayerDataProvider>())).NonLazy();
 
         private void SetupAppSettings()
         {

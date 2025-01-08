@@ -7,6 +7,7 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
     [Serializable]
     public class PlayerData : ISaveData
     {
-        public Dictionary<CurrencyTypes, int> WalletData;// { get; set; } = new Dictionary<CurrencyTypes, int>();
+        public Dictionary<CurrencyTypes, int> WalletData;
+        public List<int> CompletedLevels;
     }
 }

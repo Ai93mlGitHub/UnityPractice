@@ -39,12 +39,10 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
         {
             if (_saveLoadService.TryLoad(out TData data))
             {
-                Debug.Log("Данные успешно загружены");
                 Data = data;
             }
             else
             {
-                Debug.LogError("Не удалось загрузить данные");
                 Reset();
             }
 

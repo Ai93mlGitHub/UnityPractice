@@ -1,8 +1,6 @@
 using Assets.Develop.CommonServices.AssetsManagment;
 using Assets.Develop.Configs.Common.Wallet;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Assets.Develop.Configs.Gameplay;
 
 namespace Assets.Develop.CommonServices.ConfigsManagement
 {
@@ -19,10 +17,13 @@ namespace Assets.Develop.CommonServices.ConfigsManagement
 
         public CurrencyIconsConfig CurrencyIconsConfig { get; private set; }
 
+        public LevelListConfig LevelListConfig { get; private set; }
+
         public void LoadAll()
         {
             LoadStartWalletConfig();
             LoadCurrencyIconsConfig();
+            LoadLevelListConfig();
         }
 
         private void LoadStartWalletConfig()
@@ -30,5 +31,8 @@ namespace Assets.Develop.CommonServices.ConfigsManagement
 
         private void LoadCurrencyIconsConfig()
             => CurrencyIconsConfig = _resourcesAssetLoader.LoadResource<CurrencyIconsConfig>("Configs/Common/Wallet/CurrencyIconsConfig");
+
+        private void LoadLevelListConfig()
+            => LevelListConfig = _resourcesAssetLoader.LoadResource<LevelListConfig>("Configs/Gameplay/Levels/LevelListConfig");
     }
 }
