@@ -1,7 +1,8 @@
-using UnityEngine;
-
-public class InfrastructureAssetPaths : MonoBehaviour
+namespace Assets.Develop.CommonServices.AssetsManagement
 {
-    public const string CoroutinePerformerPath = "Infrastructure/CoroutinePerformer";
-    public const string LoadingCurtainPath = "Infrastructure/StandartLoadingCurtain";
+    public class InfrastructureAssetPaths
+    {
+        public const string CoroutinePerformerPath = "Infrastructure/CoroutinePerformer";
+        public const string LoadingCurtainPath = "Infrastructure/StandartLoadingCurtain";
+    }
 }

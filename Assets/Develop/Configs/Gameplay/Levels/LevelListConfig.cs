@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Develop.Configs.Gameplay
@@ -16,7 +14,8 @@ namespace Assets.Develop.Configs.Gameplay
         public LevelConfig GetBy(int level)
         {
             int levelIndex = level - 1;
-            if (level >= _levels.Count)
+
+            if (levelIndex >= _levels.Count)
                 throw new ArgumentException(nameof(level));
 
             return _levels[levelIndex];

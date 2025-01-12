@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Assets.Develop.DI;
 using Assets.Develop.CommonServices.LoadingScreen;
@@ -32,7 +31,7 @@ namespace Assets.Develop.EntryPoint
 
             loadingCurtain.Hide();
 
-            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new MainMenuInputArgs()));
+            sceneSwitcher.ProseccSwitchSceneFor(new OutputBootstrapArgs(new GameplayInputArgs(1)));
         }
     }
 }

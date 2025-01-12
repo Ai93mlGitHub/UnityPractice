@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Assets.Develop.CommonServices.DataManagment.DataProviders
 {
@@ -9,7 +8,6 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
         private readonly ISaveLoadService _saveLoadService;
 
         private List<IDataWriter<TData>> _writers = new();
-
         private List<IDataReader<TData>> _readers = new();
 
         public DataProvider(ISaveLoadService saveLoadService)
@@ -38,13 +36,9 @@ namespace Assets.Develop.CommonServices.DataManagment.DataProviders
         public void Load()
         {
             if (_saveLoadService.TryLoad(out TData data))
-            {
                 Data = data;
-            }
             else
-            {
                 Reset();
-            }
 
             foreach (IDataReader<TData> reader in _readers)
                 reader.ReadFrom(Data);

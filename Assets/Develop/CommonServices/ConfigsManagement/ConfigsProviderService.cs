@@ -27,7 +27,7 @@ namespace Assets.Develop.CommonServices.ConfigsManagement
         }
 
         private void LoadStartWalletConfig()
-            => StartWalletConfig = _resourcesAssetLoader.LoadResource<StartWalletConfig>("Configs/Common/Wallet/StarWalletConfig");
+            => StartWalletConfig = _resourcesAssetLoader.LoadResource<StartWalletConfig>("Configs/Common/Wallet/StartWalletConfig");
 
         private void LoadCurrencyIconsConfig()
             => CurrencyIconsConfig = _resourcesAssetLoader.LoadResource<CurrencyIconsConfig>("Configs/Common/Wallet/CurrencyIconsConfig");

@@ -7,9 +7,9 @@ using Assets.Develop.CommonServices.SceneManagment;
 using Assets.Develop.CommonServices.DataManagment;
 using Assets.Develop.CommonServices.DataManagment.DataProviders;
 using Assets.Develop.CommonServices.Wallet;
-using System;
 using Assets.Develop.CommonServices.ConfigsManagement;
 using Assets.Develop.CommonServices.LevelsManagement;
+using Assets.Develop.CommonServices.AssetsManagement;
 
 namespace Assets.Develop.EntryPoint
 {
